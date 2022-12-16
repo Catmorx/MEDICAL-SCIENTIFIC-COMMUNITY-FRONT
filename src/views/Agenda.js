@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import Input from '../components/forms/Input';
 import Gap from '../components/utils/Gap';
 import Button from '../components/forms/Button';
@@ -53,22 +54,31 @@ export default function Agenda() {
     }
 
     return (
-        <form onSubmit={onSubmit}>
-            <Card padding="2rem" flexDirection="column" borderRadius="1rem">
-                <h1>Agenda</h1>
-                <Gap>2rem</Gap>
-                <Input type="Date" onChange={(v) => setFecha(v.target.value)}></Input>
-                <Gap>0.5rem</Gap>
-                <Input onChange={(v) => setDoctor(v.target.value)}>Nombre del Doctor</Input>
-                <Gap>0.5rem</Gap>
-                <Input onChange={(v) => setPaciente(v.target.value)}>Nombre del Paciente</Input>
-                <Gap>0.5rem</Gap>
-                <Input onChange={(v) => setDocumento(v.target.value)}>Documento</Input>
-                <Gap>0.5rem</Gap>
-                <Input onChange={(v) => setEstado(v.target.value)}>Estado</Input>
-                <Gap>2rem</Gap>
-                <Button type="submit"><b>AGENDAR</b></Button>
-            </Card>
-        </form>
+        <>
+            <nav className='flex'>
+                <Link to="/"><h2 className='topmenu'>HOME</h2></Link>
+                <Link to="/login"><h1 className='topmenu'>INICIAR</h1></Link>
+                <Link to="/register"><h1 className='topmenu'>REGISTRARSE</h1></Link>
+                <Link to="/user"><h1 className='topmenu'>USUARIOS</h1></Link>
+
+            </nav>
+            <form onSubmit={onSubmit}>
+                <Card padding="2rem" flexDirection="column" borderRadius="1rem">
+                    <h1>Agenda</h1>
+                    <Gap>2rem</Gap>
+                    <Input type="Date" onChange={(v) => setFecha(v.target.value)}></Input>
+                    <Gap>0.5rem</Gap>
+                    <Input onChange={(v) => setDoctor(v.target.value)}>Nombre del Doctor</Input>
+                    <Gap>0.5rem</Gap>
+                    <Input onChange={(v) => setPaciente(v.target.value)}>Nombre del Paciente</Input>
+                    <Gap>0.5rem</Gap>
+                    <Input onChange={(v) => setDocumento(v.target.value)}>Documento</Input>
+                    <Gap>0.5rem</Gap>
+                    <Input onChange={(v) => setEstado(v.target.value)}>Estado</Input>
+                    <Gap>2rem</Gap>
+                    <Button type="submit"><b>AGENDAR</b></Button>
+                </Card>
+            </form>
+        </>
     )
 }
