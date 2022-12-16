@@ -31,7 +31,7 @@ export default function Login(){
             <Card padding="2rem" flexDirection="colum" borderRadius="1rem">
                 <h1>Iniciar sesión</h1>
                 <Gap>2rem</Gap>
-                <Input  onChange={(v) =>setUser(v.target.value)}>User Name</Input>
+                <Input  onChange={(v) =>setUser(v.target.value)}>Usuario</Input>
                 <Gap>0.5rem</Gap>
                 <Input type="password" onChange={(v) =>setPassword(v.target.value)}>Contraseña</Input>
                 <Gap>2rem</Gap>
