@@ -1,5 +1,5 @@
 .card{
-    background-color: beige;
+    background-color: rgb(221, 221, 219);
     display: inline-flex;
-    flex-direction: column;
+    flex-direction: column; 
 }

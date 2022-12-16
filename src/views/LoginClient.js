@@ -1,15 +1,26 @@
 import React, {useState} from 'react';
 
-import Card from './utils/Card';
-import Gap from './utils/Gap';
-import Input from './forms/Input';
-import Button from './forms/Button';
+import Card from '../components/utils/Card';
+import Gap from '../components/utils/Gap';
+import Input from '../components/forms/Input';
+import Button from '../components/forms/Button';
 
 export default function Login(){
 
-    function onSubmit(e){
+    async function onSubmit(e){
         e.preventDefault()
-        alert("user: "+user+", password: "+password)
+        
+        const res = await fetch("http://localhost:4000/login", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application.json",
+                user,
+                password
+            }
+            
+        })
+        const{message} = await res.json()
+        alert(message)
     }
 
     const [user, setUser] = useState("");
@@ -18,7 +29,7 @@ export default function Login(){
     return(
         <form onSubmit={onSubmit}>
             <Card padding="2rem" flexDirection="colum" borderRadius="1rem">
-                <h1>Login</h1>
+                <h1>Iniciar como cliente</h1>
                 <Gap>2rem</Gap>
                 <Input  onChange={(v) =>setUser(v.target.value)}>User Name</Input>
                 <Gap>0.5rem</Gap>
@@ -26,6 +37,8 @@ export default function Login(){
                 <Gap>2rem</Gap>
                 <Button type="submit"><b>INGRESAR </b></Button>
             </Card>
-        </form>
+        </form> 
+        
     )
+    
 }
