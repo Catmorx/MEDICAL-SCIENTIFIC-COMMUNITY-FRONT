@@ -1,0 +1,8 @@
+
+.position-absolute.bottom-25.end-50 {
+    background-color: rgba(0,136,160,255);
+    right: 30%!important;
+    color: #fff;
+    width: 500px;
+    text-align: center;
+}
