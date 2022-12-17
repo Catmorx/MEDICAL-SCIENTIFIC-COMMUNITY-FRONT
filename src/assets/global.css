@@ -11,20 +11,42 @@
 .flex {
   display: flex;
   justify-content: space-around;
-  padding-top: 30px;
+  background-color: var(--nav-color);
+  padding-top: 50px;
   padding-right: 30px;
   padding-bottom: 2.5rem;
   padding-left: 80px;
 }
 
-.topmenu {
-  padding: 0.5rem;
-  border: none;
-  background: rgb(21, 58, 224);
-  color: white;
-  border-radius: 0.2rem;
+nav.navbar.navbar-expand-md.nav-color.py-0 {
+  display: flex;
+  justify-content: flex-end;
 }
 
+nav.navbar.navbar-expand-md.nav-color.py-0 a {
+  text-decoration: none;
+  padding-top: 0.5rem;
+}
+nav.navbar.navbar-expand-md.nav-color.py-0 a h2.topmenu {
+  height: 40px;
+}
+.topmenu {
+  border: none;
+  background-color: rgb(213, 244, 244);
+  color: rgba(0, 0, 0, 0.55);
+  border-radius: 2rem;
+  width: 150px;
+  font-size: 20px;
+  padding-top: 0.5rem;
+  padding-left: 2.5rem;
+  /* padding-bottom: 1rem; */
+  margin-right: 2rem;
+  height: 40px;
+}
+
+h1#largeItem {
+  width: 200px;
+}
 .table {
   padding-top: 30px;
   padding-right: 30px;

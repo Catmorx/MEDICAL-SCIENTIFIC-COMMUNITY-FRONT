@@ -1,84 +1,108 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Input from '../components/forms/Input';
-import Gap from '../components/utils/Gap';
-import Button from '../components/forms/Button';
-import Card from '../components/utils/Card';
+import Input from "../components/forms/Input";
+import Gap from "../components/utils/Gap";
+import Button from "../components/forms/Button";
+import "../assets/Agenda.css";
+import Card from "../components/utils/Card";
 
 export default function Agenda() {
     const [fecha, setFecha] = useState("");
     const [estado, setEstado] = useState("");
     const [doctor, setDoctor] = useState("");
-    const [paciente, setPaciente] = useState("");
-    const [documento, setDocumento] = useState("");
-
+    // const [paciente, setPaciente] = useState("");
+    // const [documento, setDocumento] = useState("");
 
     async function onSubmit(e) {
-        e.preventDefault();
-        alert("fecha: " + fecha + ", estado: " + estado + ", doctor: " + doctor + ", paciente: " + paciente + ", documento: " + documento);
-
-        await fetch("http://localhost:4000/agendar", {
-            method: "GET",
+        try {
+            e.preventDefault();
+            await fetch("http://localhost:4000/agendar", {
+            method: "POST",
             headers: {
-                "Content-Type": "application.json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
                 fecha,
-                estado
-            }
-
+                estado,
+                usuario: "cat",
+                doctorName: doctor,
+            }),
         })
-            .then(response => { return response.json() })
-            .catch(error => console.error(error))
-            .then(response => console.log(response));
-
-        await fetch("http://localhost:4000/doctor", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application.json",
-            }
-
-        })
-            .then(response => { return response.json() })
-            .catch(error => console.error(error))
-            .then(response => console.log(response));
-
-        fetch("http://localhost:4000/registro", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application.json",
-            }
-
-        })
-            .then(response => { return response.json() })
-            .catch(error => console.error(error))
-            .then(response => console.log(response[0].nombre));
+            .then((response) => {
+                return response.json();
+                
+            })
+            .catch((error) => {
+                alert("Llene los campos")
+                console.error(error)
+            })
+            .then((response) => {
+                alert("Cita Agendada")
+                e.target.reset();
+            });
+        } catch (error) {
+        }
     }
 
     return (
         <>
-            <nav className='flex'>
-                <Link to="/"><h2 className='topmenu'>HOME</h2></Link>
-                <Link to="/login"><h1 className='topmenu'>INICIAR</h1></Link>
-                <Link to="/register"><h1 className='topmenu'>REGISTRARSE</h1></Link>
-                <Link to="/user"><h1 className='topmenu'>USUARIOS</h1></Link>
-
+            <nav className="navbar navbar-expand-md nav-color py-0">
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    style={{
+                        backgroundColor: "rgb(213, 244, 244)",
+                        color: "rgba(0, 0, 0, 0.55)",
+                        borderRadius: "2rem",
+                        fontSize: "20px",
+                        border: "none",
+                        width: "150px",
+                        height: "40px",
+                    }}
+                >
+                    Pedir Cita
+                </button>
+                <Link to="/">
+                    <h1 className="topmenu">Home</h1>
+                </Link>
             </nav>
-            <form onSubmit={onSubmit}>
-                <Card padding="2rem" flexDirection="column" borderRadius="1rem">
-                    <h1>Agenda</h1>
-                    <Gap>2rem</Gap>
-                    <Input type="Date" onChange={(v) => setFecha(v.target.value)}></Input>
-                    <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setDoctor(v.target.value)}>Nombre del Doctor</Input>
-                    <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setPaciente(v.target.value)}>Nombre del Paciente</Input>
-                    <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setDocumento(v.target.value)}>Documento</Input>
-                    <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setEstado(v.target.value)}>Estado</Input>
-                    <Gap>2rem</Gap>
-                    <Button type="submit"><b>AGENDAR</b></Button>
-                </Card>
-            </form>
+
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Agendar Cita Medica</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form className='now' onSubmit={onSubmit}>
+                            <div className="modal-body">
+                                <Input id="fecha" type="date" onChange={(v) => setFecha(v.target.value)}></Input>
+                                <Gap>0.5rem</Gap>
+                                <Input onChange={(v) => setDoctor(v.target.value)}>Nombre del Doctor</Input>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" className="btn btn-primary">Agendar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Doctor</th>
+                            <th scope="col">Especialidad</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </>
-    )
+    );
 }

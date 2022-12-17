@@ -11,28 +11,29 @@ export default function Login() {
         e.preventDefault()
 
         const res = await fetch("http://localhost:4000/login", {
-            method: "GET",
+            method: "POST",
             headers: {
-                "Content-Type": "application.json",
-                user,
-                password
+                "Content-Type": "application/json",
             }
+            ,body:JSON.stringify({
+                usuario,
+                password
+            })
 
         })
         const { message } = await res.json()
         alert(message)
     }
 
-    const [user, setUser] = useState("");
+    const [usuario, setUser] = useState("");
     const [password, setPassword] = useState("");
 
     return (
         <>
-            <nav className='flex'>
-                <Link to="/"><h2 className='topmenu'>HOME</h2></Link>
-                <Link to="/login"><h1 className='topmenu'>INICIAR</h1></Link>
-                <Link to="/register"><h1 className='topmenu'>REGISTRARSE</h1></Link>
-                <Link to="/user"><h1 className='topmenu'>USUARIOS</h1></Link>
+            <nav className='navbar navbar-expand-md nav-color py-0'>
+                <Link to="/"><h1 className='topmenu'>Home</h1></Link>
+                <Link to="/register"><h1 className='topmenu' id='largeItem'>Registrarse</h1></Link>
+                <Link to= "/agenda"><h1 className='topmenu'>Agendar</h1></Link>
             </nav>
             <form onSubmit={onSubmit}>
                 <Card padding="2rem" flexDirection="colum" borderRadius="1rem">

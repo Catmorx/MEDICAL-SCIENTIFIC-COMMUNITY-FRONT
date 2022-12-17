@@ -1,0 +1,28 @@
+/* 
+.position-absolute.bottom-25.end-50 {
+    background-color: rgba(0,136,160,255);
+    right: 30%!important;
+    color: #fff;
+    width: 500px;
+    text-align: center;
+} */
+.modal-body input.input{
+    border-bottom: solid 1px;
+    
+}
+.modal-body{
+    margin-left: 25%;
+    
+}
+.btn-custom-meet {
+    background-color: var(--bs-danger);
+}
+button.btn.btn-secondary{
+    background-color: #6c757d;
+    color:  rgb(225, 225, 225);
+    border-radius: 2rem;
+    font-size: 20px;
+    border: none;
+    width: 110px;
+    height: 40px;
+}
