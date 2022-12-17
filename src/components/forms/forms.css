@@ -1,14 +1,14 @@
 .button{
     padding: 0.5rem;
     border: none;
-    background: rgb(21, 58, 224);
+    background: rgba(2,149,219,255);
     color: white;
     border-radius: 0.5rem;
 }
 
 .button:hover{
     cursor: pointer;
-    background-color: rgb(148, 15, 42);
+    background-color: rgb(113,207,247);
 }
 
 .input{
@@ -16,7 +16,6 @@
     text-align: start;
     padding: 0.5rem;
     border: none;
-    background: none;
-    border-bottom: solid 1px;
+    border-radius: .5rem;
 }
 

@@ -11,8 +11,7 @@ function User() {
                 <Link to="/"><h2 className='topmenu'>HOME</h2></Link>
                 <Link to="/login"><h1 className='topmenu'>INICIAR</h1></Link>
                 <Link to="/register"><h1 className='topmenu'>REGISTRARSE</h1></Link>
-                <Link to="/user"><h1 className='topmenu'>USUARIOS</h1></Link>
-
+                <Link to= "/agenda"><h1 className='topmenu'>AGENDAR</h1></Link>
             </nav>
             <Card>
                 <table class="table">

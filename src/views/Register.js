@@ -14,8 +14,7 @@ export default function Register() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-            }
-            ,body:JSON.stringify({
+            }, body: JSON.stringify({
                 nombre,
                 apellido,
                 documento,
@@ -26,7 +25,8 @@ export default function Register() {
                 genero,
                 usuario,
                 clave,
-                entidad})
+                entidad
+            })
 
         })
         const { message } = await res.json()
@@ -48,14 +48,14 @@ export default function Register() {
 
     return (
         <>
-            <nav className='flex'>
-                <Link to="/"><h2 className='topmenu'>HOME</h2></Link>
-                <Link to="/login"><h1 className='topmenu'>INICIAR</h1></Link>
-                <Link to="/register"><h1 className='topmenu'>REGISTRARSE</h1></Link>
-                <Link to="/user"><h1 className='topmenu'>USUARIOS</h1></Link>
-
+            <nav className='navbar navbar-expand-md nav-color py-0'>
+                <Link to="/"><h1 className='topmenu'>Home</h1></Link>
+                <Link to="/login"><h1 className='topmenu' id='largeItem'>Iniciar Sesión</h1></Link>
+                <Link to= "/agenda"><h1 className='topmenu'>Agendar</h1></Link>
+                
             </nav>
             <form onSubmit={onSubmit}>
+                <Gap>2rem</Gap>    
                 <Card padding="2rem" flexDirection="colum" borderRadius="1rem">
                     <h1>Registrarse</h1>
                     <Gap>2rem</Gap>
@@ -65,19 +65,19 @@ export default function Register() {
                     <Gap>0.5rem</Gap>
                     <Input onChange={(v) => setDocumento(v.target.value)}>Documento</Input>
                     <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setCorreo(v.target.value)}>Correo</Input>
+                    <Input type="email" onChange={(v) => setCorreo(v.target.value)}>Correo</Input>
                     <Gap>0.5rem</Gap>
                     <Input onChange={(v) => setContacto(v.target.value)}>Contacto</Input>
                     <Gap>0.5rem</Gap>
                     <Input onChange={(v) => setDireccion(v.target.value)}>Direccion</Input>
                     <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setNacimiento(v.target.value)}>Fecha de nacimiento</Input>
+                    <Input type="date" onChange={(v) => setNacimiento(v.target.value)}>Fecha de nacimiento</Input>
                     <Gap>0.5rem</Gap>
                     <Input onChange={(v) => setGenero(v.target.value)}>Genero</Input>
                     <Gap>0.5rem</Gap>
                     <Input onChange={(v) => setUsuario(v.target.value)}>Usuario</Input>
                     <Gap>0.5rem</Gap>
-                    <Input type="contraseña" onChange={(v) => setPassword(v.target.value)}>Contraseña</Input>
+                    <Input type="password" onChange={(v) => setPassword(v.target.value)}>Contraseña</Input>
                     <Gap>0.5rem</Gap>
                     <Input onChange={(v) => setEntidad(v.target.value)}>Entidad</Input>
                     <Gap>2rem</Gap>
