@@ -10,10 +10,12 @@ export default function Register() {
     async function onSubmit(e) {
         e.preventDefault()
 
-        const res = await fetch("http://localhost:4000/login", {
-            method: "GET",
+        const res = await fetch("http://localhost:4000/register", {
+            method: "POST",
             headers: {
-                "Content-Type": "application.json",
+                "Content-Type": "application/json",
+            }
+            ,body:JSON.stringify({
                 nombre,
                 apellido,
                 documento,
@@ -23,9 +25,8 @@ export default function Register() {
                 fechaDeNacimiento,
                 genero,
                 usuario,
-                contraseña,
-                entidad
-            }
+                clave,
+                entidad})
 
         })
         const { message } = await res.json()
@@ -41,7 +42,7 @@ export default function Register() {
     const [fechaDeNacimiento, setNacimiento] = useState("");
     const [genero, setGenero] = useState("");
     const [usuario, setUsuario] = useState("");
-    const [contraseña, setPassword] = useState("");
+    const [clave, setPassword] = useState("");
     const [entidad, setEntidad] = useState("");
 
 

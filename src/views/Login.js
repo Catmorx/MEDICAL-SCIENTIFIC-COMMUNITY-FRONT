@@ -11,19 +11,21 @@ export default function Login() {
         e.preventDefault()
 
         const res = await fetch("http://localhost:4000/login", {
-            method: "GET",
+            method: "POST",
             headers: {
-                "Content-Type": "application.json",
-                user,
-                password
+                "Content-Type": "application/json",
             }
+            ,body:JSON.stringify({
+                usuario,
+                password
+            })
 
         })
         const { message } = await res.json()
         alert(message)
     }
 
-    const [user, setUser] = useState("");
+    const [usuario, setUser] = useState("");
     const [password, setPassword] = useState("");
 
     return (
