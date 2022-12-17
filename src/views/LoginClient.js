@@ -28,12 +28,11 @@ export default function Login() {
 
     return (
         <>
-            <nav className='flex'>
+            <nav className='navbar navbar-expand-md nav-color py-0'>
                 <Link to="/"><h2 className='topmenu'>HOME</h2></Link>
-                <Link to="/login"><h1 className='topmenu'>INICIAR</h1></Link>
-                <Link to="/register"><h1 className='topmenu'>REGISTRARSE</h1></Link>
+                <Link to="/register"><h1 className='topmenu' id='largeItem'>REGISTRARSE</h1></Link>
                 <Link to="/user"><h1 className='topmenu'>USUARIOS</h1></Link>
-
+                <Link to= "/agenda"><h1 className='topmenu'>AGENDAR</h1></Link>
             </nav>
             <form onSubmit={onSubmit}>
                 <Card padding="2rem" flexDirection="colum" borderRadius="1rem">
