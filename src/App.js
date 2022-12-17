@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import User from "./views/User";
 import { LandingPage } from "./views/LandingPage";
+import Home from "./views/Home";
 import Login from "./views/Login";
 import Users from "./views/Users";
 import Register from "./views/Register";
@@ -20,6 +21,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
+          <Route path="/home" element={<Home />}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/register" element={<Register></Register>}></Route>
           <Route path="/user" element={<Users></Users>}></Route>
