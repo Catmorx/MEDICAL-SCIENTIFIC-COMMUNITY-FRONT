@@ -2,7 +2,7 @@ import React from "react";
 import "./forms.css";
 
 export default function Input(props) {
-  const { children, type, value, onChange, id, name, className = "" } = props;
+  const { children, type, value, onChange, id, name, className = "", borderBottom="solid 1px", required} = props;
 
   return (
     <input
@@ -13,6 +13,8 @@ export default function Input(props) {
       placeholder={children}
       id={id}
       name={name}
+      style={{borderBottom: borderBottom}}
+      required={required}
     ></input>
   );
 }
