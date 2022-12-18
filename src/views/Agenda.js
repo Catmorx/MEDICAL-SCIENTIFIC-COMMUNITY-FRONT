@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Input from "../components/forms/Input";
 import { ModalCustom } from "../components/Modal";
+import { format } from "date-fns";
 
 export default function Agenda() {
+    const [id, setId] = useState(null);
     const [citas, setCitas] = useState([]);
     const [cita, setCita] = useState({
         fecha: "",
@@ -13,17 +15,15 @@ export default function Agenda() {
     });
     const [show, setShow] = useState(false);
     const [doctors, setDoctors] = useState([]);
-    const [showEd, setShowEd] = useState();
-    // const [doctor, setDoctor] = useState({
-    //     nombre: "",
-    //     apellido: "",
-    //     especialidad: "",
-    // });
+    const [updated, setUpdated] = useState(false);
+
 
     async function onSubmit(e) {
         e.preventDefault();
-        const response = await fetch("http://localhost:4000/agendar", {
-            method: "POST",
+        const url = id ? "http://localhost:4000/agendar/" + id : "http://localhost:4000/agendar";
+        
+        const response = await fetch(url, {
+            method: id ? "PATCH" : "POST",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -32,20 +32,18 @@ export default function Agenda() {
         const { message } = await response.json();
         setShow(false);
         alert(message);
+        setUpdated(!updated)
     }
 
 
     async function edit(id) {
-        const response = await fetch("http://localhost:4000/agendar" + id, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(cita),
-        });
-        const { message } = await response.json();
-        setShow(false);
-        alert(message);
+        const response = await fetch("http://localhost:4000/agendar/" + id);
+        const citaGet = await response.json();
+        const { _id, fecha, hora, doctor: { nombre }, paciente: { usuario } } = citaGet
+        setId(_id)
+        setCita({fecha, hora , doctor: nombre, usuario})
+        setShow(true);
+        
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -53,18 +51,15 @@ export default function Agenda() {
     };
     useEffect(() => {
         (async () => {
-            const response = await fetch("http://localhost:4000/agendar");
-            const data = await response.json();
-            setCitas(data);
+            const agendas = await fetch("http://localhost:4000/agendar");
+            const agenda = await agendas.json();
+            setCitas(agenda);
+            const doctors = await fetch("http://localhost:4000/doctor");
+            const doctores = await doctors.json();
+            setDoctors(doctores);
         })();
-    }, []);
-    useEffect(() => {
-        (async () => {
-            const response = await fetch("http://localhost:4000/doctor");
-            const data = await response.json();
-            setDoctors(data);
-        })();
-    }, []);
+    }, [updated]);
+
 
     const hours = [
         "08:00",
@@ -109,23 +104,13 @@ export default function Agenda() {
                 >Pedir Cita</button>
                 <Link to="/home">
                     <h1
-                        className="btn btn-primary"
-                        style={{
-                            backgroundColor: "rgb(213, 244, 244)",
-                            color: "rgba(0, 0, 0, 0.55)",
-                            borderRadius: "2rem",
-                            fontSize: "20px",
-                            border: "none",
-                            width: "150px",
-                            height: "40px",
-                            marginRight: "2rem"
-                        }}
+                        className="topmenu"
                     >Home</h1>
                 </Link>
             </nav>
 
             <ModalCustom
-                title="Agendar Cita Medica"
+                title={id === null ? "Agendar Cita Medica" : "Actualizar Cita Medica"}
                 show={show}
                 handleClose={() => setShow(false)}
             >
@@ -135,6 +120,7 @@ export default function Agenda() {
                         id="fecha"
                         name="fecha"
                         type="date"
+                        value={(cita.fecha !== '') ? format(new Date(cita.fecha), 'yyyy-MM-dd') : ""}
                         onChange={(v) => handleChange(v)}
                         className="form-control mb-3"
                     ></Input>
@@ -143,11 +129,13 @@ export default function Agenda() {
                         className="form-control mb-3"
                         name="doctor"
                         id="doctor"
-                        onChange={(v) => handleChange(v)}>
-
-                        <option value="" selected>Seleccione un Doctor</option>
+                        onChange={(v) => handleChange(v)}
+                        defaultValue=""
+                        value={cita.doctor}
+                        >
+                        <option value="" disabled>Seleccione un Doctor</option>
                         {doctors.map((doctor) => (
-                            <option value={doctor.id}>{doctor.nombre}</option>
+                            <option value={doctor.nombre}>{doctor.nombre}</option>
                         ))}
                     </select>
                     <select
@@ -155,8 +143,10 @@ export default function Agenda() {
                         name="hora"
                         id="hora"
                         onChange={(v) => handleChange(v)}
+                        defaultValue=""
+                        value={cita.hora}
                     >
-                        <option value="" selected>
+                        <option value="" disabled>
                             Seleccione una hora
                         </option>
                         {hours.map((hour) => (
@@ -211,8 +201,7 @@ export default function Agenda() {
                                 <td>
                                     <button
                                         className="btn btn-primary"
-                                        type="submit"
-                                        onClick={() => setShowEd(true)}
+                                        onClick={() => edit(cita._id)}
                                         style={{
                                             backgroundColor: "rgb(213, 244, 244)",
                                             color: "rgba(0, 0, 0, 0.55)",
@@ -227,65 +216,6 @@ export default function Agenda() {
                                 </td>
                             </tr>
                         ))}
-                        <ModalCustom
-                            title="Agendar Cita Medica"
-                            show={showEd}
-                            handleClose={() => setShowEd(false)}
-                        >
-                            <form onSubmit={edit(cita.id)}>
-                                <label className="fw-bolder">Fecha de Agendamiento:</label>
-                                <Input
-                                    id="fecha"
-                                    name="fecha"
-                                    type="date"
-                                    onChange={(v) => handleChange(v)}
-                                    className="form-control mb-3"
-                                ></Input>
-                                <label className="fw-bolder">Doctor:</label>
-                                <select
-                                    className="form-control mb-3"
-                                    name="doctor"
-                                    id="doctor"
-                                    onChange={(v) => handleChange(v)}>
-
-                                    <option value="" selected>Seleccione un Doctor</option>
-                                    {doctors.map((doctor) => (
-                                        <option value={doctor.id}>{doctor.nombre}</option>
-                                    ))}
-                                </select>
-                                <select
-                                    className="form-control mb-3"
-                                    name="hora"
-                                    id="hora"
-                                    onChange={(v) => handleChange(v)}
-                                >
-                                    <option value="" selected>
-                                        Seleccione una hora
-                                    </option>
-                                    {hours.map((hour) => (
-                                        <option value={hour}>{hour}</option>
-                                    ))}
-                                </select>
-                                <div className="d-flex justify-content-center">
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary"
-                                        style={{
-                                            backgroundColor: "rgb(213, 244, 244)",
-                                            color: "rgba(0, 0, 0, 0.55)",
-                                            borderRadius: "2rem",
-                                            fontSize: "20px",
-                                            border: "none",
-                                            width: "150px",
-                                            height: "40px",
-                                            marginRight: "2rem"
-                                        }}
-                                    >
-                                        Agendar
-                                    </button>
-                                </div>
-                            </form>
-                        </ModalCustom>
                     </tbody>
                 </table>
             </div>
