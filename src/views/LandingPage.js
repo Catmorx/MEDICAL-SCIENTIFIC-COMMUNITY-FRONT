@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
+import { Button } from "react-bootstrap";
 import {
   FaCheckDouble,
   FaHandHoldingHeart,
@@ -28,7 +30,9 @@ export const LandingPage = () => {
             </IconContext.Provider>
             <h1 className="fw-bolder">AYUDA EN LINEA</h1>
             <h2 className="fw-bolder">24/7</h2>
-            <button className="btn btn-primary">REGISTRARSE</button>
+            <Button variant="primary" as={Link} to="/register">
+              REGISTRARSE
+            </Button>
           </div>
         </div>
         <div className="main-footer">
