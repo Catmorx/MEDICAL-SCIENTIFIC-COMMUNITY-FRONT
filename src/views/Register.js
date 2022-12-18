@@ -49,40 +49,42 @@ export default function Register() {
     return (
         <>
             <nav className='navbar navbar-expand-md nav-color py-0'>
-                <Link to="/"><h1 className='topmenu'>Home</h1></Link>
+                <Link to="/home"><h1 className='topmenu'>Home</h1></Link>
                 <Link to="/login"><h1 className='topmenu' id='largeItem'>Iniciar Sesión</h1></Link>
-                <Link to= "/agenda"><h1 className='topmenu'>Agendar</h1></Link>
-                
             </nav>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                <form action='/welcome'>
                 <Gap>2rem</Gap>    
-                <Card padding="2rem" flexDirection="colum" borderRadius="1rem">
+                <Card 
+                >
                     <h1>Registrarse</h1>
                     <Gap>2rem</Gap>
-                    <Input onChange={(v) => setNombre(v.target.value)}>nombre</Input>
+                    <Input required onChange={(v) => setNombre(v.target.value)}>Nombre</Input>
                     <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setApellido(v.target.value)}>Apellido</Input>
+                    <Input required onChange={(v) => setApellido(v.target.value)}>Apellido</Input>
                     <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setDocumento(v.target.value)}>Documento</Input>
+                    <Input required onChange={(v) => setDocumento(v.target.value)}>Documento</Input>
                     <Gap>0.5rem</Gap>
-                    <Input type="email" onChange={(v) => setCorreo(v.target.value)}>Correo</Input>
+                    <Input required type="email" onChange={(v) => setCorreo(v.target.value)}>Correo</Input>
                     <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setContacto(v.target.value)}>Contacto</Input>
+                    <Input required onChange={(v) => setContacto(v.target.value)}>Contacto</Input>
                     <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setDireccion(v.target.value)}>Direccion</Input>
+                    <Input required onChange={(v) => setDireccion(v.target.value)}>Direccion</Input>
                     <Gap>0.5rem</Gap>
-                    <Input type="date" onChange={(v) => setNacimiento(v.target.value)}>Fecha de nacimiento</Input>
+                    <label>Fecha de nacimiento</label>
+                    <Input required type="date" onChange={(v) => setNacimiento(v.target.value)}></Input>
                     <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setGenero(v.target.value)}>Genero</Input>
+                    <Input required onChange={(v) => setGenero(v.target.value)}>Genero</Input>
                     <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setUsuario(v.target.value)}>Usuario</Input>
+                    <Input required onChange={(v) => setUsuario(v.target.value)}>Usuario</Input>
                     <Gap>0.5rem</Gap>
-                    <Input type="password" onChange={(v) => setPassword(v.target.value)}>Contraseña</Input>
+                    <Input required type="password" onChange={(v) => setPassword(v.target.value)}>Contraseña</Input>
                     <Gap>0.5rem</Gap>
-                    <Input onChange={(v) => setEntidad(v.target.value)}>Entidad</Input>
+                    <Input required onChange={(v) => setEntidad(v.target.value)}>Entidad</Input>
                     <Gap>2rem</Gap>
-                    <Button type="submit"><b>REGISTRARSE </b></Button>
+                    <Button className="btn-btn primary" type="submit" id="largeItem"><b>REGISTRARSE </b></Button>
                 </Card>
+                </form>
             </form>
         </>
     )
