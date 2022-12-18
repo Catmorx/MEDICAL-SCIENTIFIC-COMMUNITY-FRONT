@@ -13,17 +13,17 @@ export const Nav = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/#">
+              <Link className="nav-link" to="/login">
                 Planes de salud
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/#">
+              <Link className="nav-link" to="/login">
                 Drogueria
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/#">
+              <Link className="nav-link" to="/login">
                 Centros de salud
               </Link>
             </li>

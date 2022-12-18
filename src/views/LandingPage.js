@@ -39,20 +39,23 @@ export const LandingPage = () => {
           <div className="container">
             <div className="row">
               <div className="col-3 bg-primary bg-opacity-50">
-                <div className="d-flex justify-content-center align-items-center flex-column text-light  ">
-                  <IconContext.Provider
-                    value={{ size: "50%", color: "white", className: "mt-2" }}
-                  >
-                    <FaHandHoldingHeart />
-                  </IconContext.Provider>
-                  <span className="fw-bolder mt-2">SERVICIOS</span>
-                  <p style={{ textAlign: "center" }}>
-                    Conoce los diferentes servicios a los que puedes acceder
-                    siendo cliente.
-                  </p>
-                </div>
+                <Link to="/login" style={{textDecoration: "none"}}>
+                  <div className="d-flex justify-content-center align-items-center flex-column text-light  ">
+                    <IconContext.Provider
+                      value={{ size: "50%", color: "white", className: "mt-2" }}
+                    >
+                      <FaHandHoldingHeart />
+                    </IconContext.Provider>
+                    <span className="fw-bolder mt-2">SERVICIOS</span>
+                    <p style={{ textAlign: "center" }}>
+                      Conoce los diferentes servicios a los que puedes acceder
+                      siendo cliente.
+                    </p>
+                  </div>
+                </Link>
               </div>
               <div className="col-3 bg-primary bg-opacity-50">
+              <Link to="/login" style={{textDecoration: "none"}}>
                 <div className="d-flex justify-content-center align-items-center flex-column text-light  ">
                   <IconContext.Provider
                     value={{ size: "35%", color: "white", className: "mt-2" }}
@@ -65,8 +68,10 @@ export const LandingPage = () => {
                     Olvidate de hacer tanto papeleo.
                   </p>
                 </div>
+                </Link>
               </div>
               <div className="col-3 bg-primary bg-opacity-50">
+              <Link to="/login" style={{textDecoration: "none"}}>
                 <div className="d-flex justify-content-center align-items-center flex-column text-light">
                   <IconContext.Provider
                     value={{ size: "40%", color: "white", className: "mt-2" }}
@@ -79,8 +84,10 @@ export const LandingPage = () => {
                     llamada para agendar tu cita.
                   </p>
                 </div>
+                </Link>
               </div>
               <div className="col-3 bg-primary bg-opacity-50">
+              <Link to="/login" style={{textDecoration: "none"}}>
                 <div className="d-flex justify-content-center align-items-center flex-column text-light  ">
                   <IconContext.Provider
                     value={{ size: "45%", color: "white", className: "mt-2" }}
@@ -92,6 +99,7 @@ export const LandingPage = () => {
                     Tu opinion es muy importante para nosotros.
                   </p>
                 </div>
+                </Link>
               </div>
             </div>
           </div>

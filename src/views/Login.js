@@ -5,6 +5,7 @@ import Card from "../components/utils/Card";
 import Gap from "../components/utils/Gap";
 import Input from "../components/forms/Input";
 import Button from "../components/forms/Button";
+import Logo from "../assets/img/logo.jpg";
 
 export default function Login() {
   const [usuario, setUser] = useState("");
@@ -24,32 +25,47 @@ export default function Login() {
       }),
     });
     const { message } = await res.json();
-    if(message === "Bienvenido") navigate("/welcome")
+    if (message === "Bienvenido")
+      navigate("/welcome")
     alert(message);
   }
 
   return (
     <>
-      <nav className="navbar navbar-expand-md nav-color py-0">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between"
+        }}
+        className="navbar navbar-expand-md nav-color py-0"
+      >
         <Link to="/">
-          <h1 className="topmenu">Home</h1>
+          <img
+            src={Logo}
+            alt="Logo"
+            width="60"
+            height="60"
+            className="d-inline-block align-text-top"
+          />
         </Link>
-        <Link to="/register">
-          <h1 className="topmenu" id="largeItem">
-            Registrarse
-          </h1>
-        </Link>
-        <Link to="/agenda">
-          <h1 className="topmenu">Agendar</h1>
-        </Link>
-      </nav>
-      <form onSubmit={onSubmit}>
-        <Card padding="2rem" flexDirection="colum" borderRadius="1rem">
+        <nav className="navbar navbar-expand-md nav-color py-0">
+          <Link to="/">
+            <h1 className="topmenu">Home</h1>
+          </Link>
+          <Link to="/register">
+            <h1 className="topmenu" id="largeItem">
+              Registrarse
+            </h1>
+          </Link>
+        </nav></div>
+      <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Gap>2rem</Gap>
+        <Card>
           <h1>Iniciar sesión</h1>
           <Gap>2rem</Gap>
-          <Input onChange={(v) => setUser(v.target.value)}>Usuario</Input>
+          <Input required onChange={(v) => setUser(v.target.value)}>Usuario</Input>
           <Gap>0.5rem</Gap>
-          <Input type="password" onChange={(v) => setPassword(v.target.value)}>
+          <Input required type="password" onChange={(v) => setPassword(v.target.value)}>
             Contraseña
           </Input>
           <Gap>2rem</Gap>

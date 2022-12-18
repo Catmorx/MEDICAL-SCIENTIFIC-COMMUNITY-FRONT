@@ -4,6 +4,7 @@ import Card from '../components/utils/Card';
 import Gap from '../components/utils/Gap';
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
+import Logo from "../assets/img/logo.jpg"
 
 export default function Register() {
 
@@ -51,14 +52,29 @@ export default function Register() {
 
     return (
         <>
-            <nav className='navbar navbar-expand-md nav-color py-0'>
-                <Link to="/home"><h1 className='topmenu'>Home</h1></Link>
-                <Link to="/login"><h1 className='topmenu' id='largeItem'>Iniciar Sesión</h1></Link>
-            </nav>
-            <form onSubmit={onSubmit} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                <form action='/welcome'>
-                <Gap>2rem</Gap>    
-                <Card 
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}
+                className="navbar navbar-expand-md nav-color py-0"
+            >
+                <Link to="/">
+                    <img
+                        src={Logo}
+                        alt="Logo"
+                        width="60"
+                        height="60"
+                        className="d-inline-block align-text-top"
+                    />
+                </Link>
+                <nav className='navbar navbar-expand-md nav-color py-0'>
+                    <Link to="/"><h1 className='topmenu'>Home</h1></Link>
+                    <Link to="/login"><h1 className='topmenu' id='largeItem'>Iniciar Sesión</h1></Link>
+                </nav></div>
+            <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <Gap>2rem</Gap>
+                <Card
                 >
                     <h1>Registrarse</h1>
                     <Gap>2rem</Gap>
@@ -87,7 +103,6 @@ export default function Register() {
                     <Gap>2rem</Gap>
                     <Button className="btn-btn primary" type="submit" id="largeItem"><b>REGISTRARSE </b></Button>
                 </Card>
-                </form>
             </form>
         </>
     )

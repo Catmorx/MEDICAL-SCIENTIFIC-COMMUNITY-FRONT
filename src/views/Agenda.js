@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Input from "../components/forms/Input";
 import { ModalCustom } from "../components/Modal";
 import { format } from "date-fns";
+import Logo from "../assets/img/logo.jpg"
 
 export default function Agenda() {
     const [id, setId] = useState(null);
@@ -21,7 +22,7 @@ export default function Agenda() {
     async function onSubmit(e) {
         e.preventDefault();
         const url = id ? "http://localhost:4000/agendar/" + id : "http://localhost:4000/agendar";
-        
+
         const response = await fetch(url, {
             method: id ? "PATCH" : "POST",
             headers: {
@@ -41,9 +42,9 @@ export default function Agenda() {
         const citaGet = await response.json();
         const { _id, fecha, hora, doctor: { nombre }, paciente: { usuario } } = citaGet
         setId(_id)
-        setCita({fecha, hora , doctor: nombre, usuario})
+        setCita({ fecha, hora, doctor: nombre, usuario })
         setShow(true);
-        
+
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -86,29 +87,45 @@ export default function Agenda() {
 
     return (
         <>
-            <nav className="navbar navbar-expand-md nav-color py-0">
-                <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => setShow(true)}
-                    style={{
-                        backgroundColor: "rgb(213, 244, 244)",
-                        color: "rgba(0, 0, 0, 0.55)",
-                        borderRadius: "2rem",
-                        fontSize: "20px",
-                        border: "none",
-                        width: "150px",
-                        height: "40px",
-                        marginRight: "2rem"
-                    }}
-                >Pedir Cita</button>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}
+                className="navbar navbar-expand-md nav-color py-0"
+            >
                 <Link to="/home">
-                    <h1
-                        className="topmenu"
-                    >Home</h1>
+                    <img
+                        src={Logo}
+                        alt="Logo"
+                        width="60"
+                        height="60"
+                        className="d-inline-block align-text-top"
+                    />
                 </Link>
-            </nav>
-
+                <nav className="navbar navbar-expand-md nav-color py-0">
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => setShow(true)}
+                        style={{
+                            backgroundColor: "rgb(213, 244, 244)",
+                            color: "rgba(0, 0, 0, 0.55)",
+                            borderRadius: "2rem",
+                            fontSize: "20px",
+                            border: "none",
+                            width: "150px",
+                            height: "40px",
+                            marginRight: "2rem"
+                        }}
+                    >Pedir Cita</button>
+                    <Link to="/home">
+                        <h1
+                            className="topmenu"
+                        >Home</h1>
+                    </Link>
+                </nav>
+            </div>
             <ModalCustom
                 title={id === null ? "Agendar Cita Medica" : "Actualizar Cita Medica"}
                 show={show}
@@ -132,7 +149,7 @@ export default function Agenda() {
                         onChange={(v) => handleChange(v)}
                         defaultValue=""
                         value={cita.doctor}
-                        >
+                    >
                         <option value="" disabled>Seleccione un Doctor</option>
                         {doctors.map((doctor) => (
                             <option value={doctor.nombre}>{doctor.nombre}</option>

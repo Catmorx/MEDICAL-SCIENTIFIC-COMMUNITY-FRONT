@@ -18,8 +18,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="/home" element={<Home />}></Route>
-          <Route path="/login" element={<Login></Login>}></Route>
-          <Route path="/register" element={<Register></Register>}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
           <Route path="/agenda" element={<Agenda />}></Route>
           <Route path="/welcome" element={<Bienvenida />}></Route>
           <Route path="*" element={<h1>404 NOT FOUND</h1>}></Route>
