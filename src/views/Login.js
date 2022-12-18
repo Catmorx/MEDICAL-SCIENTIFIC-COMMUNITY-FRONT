@@ -31,21 +31,23 @@ export default function Login() {
     return (
         <>
             <nav className='navbar navbar-expand-md nav-color py-0'>
-                <Link to="/"><h1 className='topmenu'>Home</h1></Link>
+                <Link to="/home"><h1 className='topmenu'>Home</h1></Link>
                 <Link to="/register"><h1 className='topmenu' id='largeItem'>Registrarse</h1></Link>
-                <Link to= "/agenda"><h1 className='topmenu'>Agendar</h1></Link>
             </nav>
-            <form onSubmit={onSubmit}>
-                <Card padding="2rem" flexDirection="colum" borderRadius="1rem">
+            <form  onSubmit={onSubmit}  style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+            <form action="/welcome">
+                <Gap>2rem</Gap>
+                <Card 
+                >
                     <h1>Iniciar sesión</h1>
                     <Gap>2rem</Gap>
                     <Input onChange={(v) => setUser(v.target.value)}>Usuario</Input>
                     <Gap>0.5rem</Gap>
                     <Input type="password" onChange={(v) => setPassword(v.target.value)}>Contraseña</Input>
                     <Gap>2rem</Gap>
-                    <Button type="submit"><b>INGRESAR </b></Button>
+                    <Button type="submit"><b>INGRESAR</b></Button>
                 </Card>
-            </form>
+            </form></form>
         </>
     )
 

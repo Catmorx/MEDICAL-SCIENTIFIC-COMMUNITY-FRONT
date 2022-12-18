@@ -39,12 +39,15 @@ nav.navbar.navbar-expand-md.nav-color.py-0 a h2.topmenu {
   font-size: 20px;
   padding-top: 0.5rem;
   padding-left: 2.5rem;
-  /* padding-bottom: 1rem; */
   margin-right: 2rem;
   height: 40px;
 }
+.topmenu:hover{
+  cursor: pointer;
+  background-color: rgb(113,207,247);
+}
 
-h1#largeItem {
+#largeItem {
   width: 200px;
 }
 .table {
@@ -85,11 +88,11 @@ h1#largeItem {
 }
 
 .table-custom {
-  --bs-table-color: #fff !important;
-  --bs-table-bg: #212529 !important;
+  --bs-table-color: #000 !important;
+  --bs-table-bg: #fff8f5 !important;
   --bs-table-border-color: #373b3e !important;
   --bs-table-striped-bg: #2c3034 !important;
-  --bs-table-striped-color: #fff !important;
+  --bs-table-striped-color: #0000 !important;
   --bs-table-active-bg: #373b3e !important;
   --bs-table-active-color: #fff !important;
   --bs-table-hover-bg: #323539 !important;
