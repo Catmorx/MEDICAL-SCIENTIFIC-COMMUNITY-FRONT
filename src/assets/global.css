@@ -83,3 +83,16 @@ h1#largeItem {
 .bs-scroll-height {
   --bs-scroll-height: 100px;
 }
+
+.table-custom {
+  --bs-table-color: #fff !important;
+  --bs-table-bg: #212529 !important;
+  --bs-table-border-color: #373b3e !important;
+  --bs-table-striped-bg: #2c3034 !important;
+  --bs-table-striped-color: #fff !important;
+  --bs-table-active-bg: #373b3e !important;
+  --bs-table-active-color: #fff !important;
+  --bs-table-hover-bg: #323539 !important;
+  --bs-table-hover-color: #fff !important;
+  color: #fff;
+}
