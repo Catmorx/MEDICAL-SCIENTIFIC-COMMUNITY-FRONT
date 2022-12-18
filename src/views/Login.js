@@ -41,9 +41,9 @@ export default function Login() {
                 >
                     <h1>Iniciar sesión</h1>
                     <Gap>2rem</Gap>
-                    <Input onChange={(v) => setUser(v.target.value)}>Usuario</Input>
+                    <Input required onChange={(v) => setUser(v.target.value)}>Usuario</Input>
                     <Gap>0.5rem</Gap>
-                    <Input type="password" onChange={(v) => setPassword(v.target.value)}>Contraseña</Input>
+                    <Input required type="password" onChange={(v) => setPassword(v.target.value)}>Contraseña</Input>
                     <Gap>2rem</Gap>
                     <Button type="submit"><b>INGRESAR</b></Button>
                 </Card>
