@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from '../components/utils/Card';
 import Gap from '../components/utils/Gap';
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
 
 export default function Register() {
+
+    const navigate = useNavigate();
 
     async function onSubmit(e) {
         e.preventDefault()
@@ -31,6 +33,7 @@ export default function Register() {
         })
         const { message } = await res.json()
         alert(message)
+        navigate("/login")
     }
 
     const [nombre, setNombre] = useState("");

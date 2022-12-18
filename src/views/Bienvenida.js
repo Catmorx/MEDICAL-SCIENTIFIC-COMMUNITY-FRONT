@@ -1,21 +1,31 @@
-import Button from '../components/forms/Button';
-import './Bienvenida.css';
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import "./Bienvenida.css";
 
 function App() {
   return (
     <>
-      <form action="/home">
-        <div className="App">
-          <div className="App-header">
-            <h1><strong><span> MEDICAL SCIENTIFIC COMMUNITY</span></strong> </h1>
-            <p>We are glad to have you back in our community</p>
-            <img src={require("../assets/img/logomscult.png")} alt="logo msc"></img>
-            <p>National Policy for the Provision of Health Services</p>
-            <Button type="submit">Continuar</Button>
-            <footer><sub> MCS/Privacy Policy</sub> </footer>
-          </div>
+      <div className="App">
+        <div className="App-header">
+          <h1>
+            <strong>
+              <span> MEDICAL SCIENTIFIC COMMUNITY</span>
+            </strong>{" "}
+          </h1>
+          <p>We are glad to have you back in our community</p>
+          <img
+            alt="MEDICAL SCIENTIFIC COMMUNITY"
+            src={require("../assets/img/logomscult.png")}
+          ></img>
+          <p>National Policy for the Provision of Health Services</p>
+          <Button variant="primary" as={Link} to="/home">
+            Continuar
+          </Button>
+          <footer>
+            <sub> MCS/Privacy Policy</sub>{" "}
+          </footer>
         </div>
-      </form>
+      </div>
     </>
   );
 }
