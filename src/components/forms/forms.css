@@ -3,7 +3,7 @@
     border: none;
     background: rgba(2,149,219,255);
     color: white;
-    border-radius: 0.5rem;
+    border-radius: 50%;
 }
 
 .button:hover{

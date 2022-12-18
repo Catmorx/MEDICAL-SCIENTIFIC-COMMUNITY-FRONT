@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Logo from "./../assets/img/logo.jpg";
 
 export const Nav = () => {
@@ -7,24 +8,24 @@ export const Nav = () => {
         <div className="collapse navbar-collapse" id="nav">
           <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll bs-scroll-height">
             <li className="nav-item">
-              <a className="nav-link" href="/#">
+              <Link className="nav-link" to="/login">
                 Iniciar Sesión
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/#">
+              <Link className="nav-link" to="/#">
                 Planes de salud
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/#">
+              <Link className="nav-link" to="/#">
                 Drogueria
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/#">
+              <Link className="nav-link" to="/#">
                 Centros de salud
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
