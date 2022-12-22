@@ -5,6 +5,7 @@ import Gap from '../components/utils/Gap';
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
 import Logo from "../assets/img/logo.jpg"
+import { API_URL } from '../config';
 
 export default function Register() {
 
@@ -13,7 +14,7 @@ export default function Register() {
     async function onSubmit(e) {
         e.preventDefault()
 
-        const res = await fetch("http://localhost:4000/register", {
+        const res = await fetch(API_URL+"/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

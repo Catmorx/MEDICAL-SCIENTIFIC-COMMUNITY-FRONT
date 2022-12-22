@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import Input from "../components/forms/Input";
 import { ModalCustom } from "../components/Modal";
 import { format } from "date-fns";
-import Logo from "../assets/img/logo.jpg"
+import Logo from "../assets/img/logo.jpg";
+import { API_URL } from "../config";
 
 export default function Agenda() {
     const [id, setId] = useState(null);
@@ -21,7 +22,7 @@ export default function Agenda() {
 
     async function onSubmit(e) {
         e.preventDefault();
-        const url = id ? "http://localhost:4000/agendar/" + id : "http://localhost:4000/agendar";
+        const url = id ? API_URL+"/agendar/" + id : API_URL+"/agendar";
 
         const response = await fetch(url, {
             method: id ? "PATCH" : "POST",
@@ -38,7 +39,7 @@ export default function Agenda() {
 
 
     async function edit(id) {
-        const response = await fetch("http://localhost:4000/agendar/" + id);
+        const response = await fetch(API_URL+"/agendar/" + id);
         const citaGet = await response.json();
         const { _id, fecha, hora, doctor: { nombre }, paciente: { usuario } } = citaGet
         setId(_id)
@@ -52,10 +53,10 @@ export default function Agenda() {
     };
     useEffect(() => {
         (async () => {
-            const agendas = await fetch("http://localhost:4000/agendar");
+            const agendas = await fetch(API_URL+"/agendar");
             const agenda = await agendas.json();
             setCitas(agenda);
-            const doctors = await fetch("http://localhost:4000/doctor");
+            const doctors = await fetch(API_URL+"/doctor");
             const doctores = await doctors.json();
             setDoctors(doctores);
         })();
