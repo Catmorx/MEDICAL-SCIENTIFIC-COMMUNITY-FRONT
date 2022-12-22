@@ -6,6 +6,7 @@ import Gap from "../components/utils/Gap";
 import Input from "../components/forms/Input";
 import Button from "../components/forms/Button";
 import Logo from "../assets/img/logo.jpg";
+import { API_URL } from "../config";
 
 export default function Login() {
   const [usuario, setUser] = useState("");
@@ -14,7 +15,7 @@ export default function Login() {
   async function onSubmit(e) {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:4000/login", {
+    const res = await fetch(API_URL+"/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
