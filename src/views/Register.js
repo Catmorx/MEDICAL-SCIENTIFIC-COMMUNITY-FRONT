@@ -113,7 +113,7 @@ export default function Register() {
                 <Gap>0.5rem</Gap>
                 <Input required type="email" onChange={(v) => setCorreo(v.target.value)}>Correo</Input>
                 <Gap>0.5rem</Gap>
-                <Input required onChange={(v) => setContacto(v.target.value)}>Contacto</Input>
+                <Input type="number" required onChange={(v) => setContacto(v.target.value)}>Contacto</Input>
                 <Gap>0.5rem</Gap>
                 <Input required onChange={(v) => setDireccion(v.target.value)}>Direccion</Input>
                 <Gap>0.5rem</Gap>
