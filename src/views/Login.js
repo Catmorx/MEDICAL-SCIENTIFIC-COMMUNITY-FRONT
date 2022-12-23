@@ -30,9 +30,9 @@ export default function Login() {
     const { message, token } = await res.json();
     if (message === "Bienvenido") {
       setCookies("token", token, { path: "/", maxAge: 7 * 24 * 60 * 60 })
-      alert(message);
       navigate("/welcome")
     }
+    alert(message);
   }
   useEffect(() => {
     (() => {
