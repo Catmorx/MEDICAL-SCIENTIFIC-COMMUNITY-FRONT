@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/forms/Input";
 import { ModalCustom } from "../components/Modal";
 import { format } from "date-fns";
 import Logo from "../assets/img/logo.jpg";
 import { API_URL } from "../config";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Agenda() {
+    const { token, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [id, setId] = useState(null);
     const [citas, setCitas] = useState([]);
     const [cita, setCita] = useState({
@@ -14,15 +17,15 @@ export default function Agenda() {
         hora: "",
         doctor: "",
         usuario: "cat",
+        estado: "",
     });
     const [show, setShow] = useState(false);
     const [doctors, setDoctors] = useState([]);
     const [updated, setUpdated] = useState(false);
 
-
     async function onSubmit(e) {
         e.preventDefault();
-        const url = id ? API_URL+"/agendar/" + id : API_URL+"/agendar";
+        const url = id ? API_URL + "/agendar/" + id : API_URL + "/agendar";
 
         const response = await fetch(url, {
             method: id ? "PATCH" : "POST",
@@ -34,35 +37,55 @@ export default function Agenda() {
         const { message } = await response.json();
         setShow(false);
         alert(message);
-        setUpdated(!updated)
+        setUpdated(!updated);
     }
 
-
     async function edit(id) {
-        const response = await fetch(API_URL+"/agendar/" + id);
+        const response = await fetch(API_URL + "/agendar/" + id);
         const citaGet = await response.json();
-        const { _id, fecha, hora, doctor: { nombre }, paciente: { usuario } } = citaGet
-        setId(_id)
-        setCita({ fecha, hora, doctor: nombre, usuario })
-        setShow(true);
+        const {
+            _id,
+            fecha,
+            hora,
+            estado,
+            doctor: { nombre },
+            paciente: { usuario },
+        } = citaGet;
+        console.log(estado);
+        setId(_id);
+        setCita({ fecha, hora, estado, doctor: nombre, usuario });
 
+        setShow(true);
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
         setCita((cita) => ({ ...cita, [name]: value }));
     };
+
+    const cleanData = () => {
+        setId(null);
+        cita.doctor = "";
+        cita.estado = "";
+        cita.fecha = "";
+        cita.hora = "";
+    };
     useEffect(() => {
         (async () => {
-            const agendas = await fetch(API_URL+"/agendar");
+            const agendas = await fetch(API_URL + "/agendar");
             const agenda = await agendas.json();
             setCitas(agenda);
-            const doctors = await fetch(API_URL+"/doctor");
+            const doctors = await fetch(API_URL + "/doctor");
             const doctores = await doctors.json();
             setDoctors(doctores);
         })();
     }, [updated]);
-
-
+    useEffect(() => {
+        (() => {
+            if (!token) {
+                navigate("/");
+            }
+        })();
+    });
     const hours = [
         "08:00",
         "08:30",
@@ -86,49 +109,95 @@ export default function Agenda() {
         "17:30",
     ];
 
+    const estados = ["Creado", "Cancelado"];
+
     return (
         <>
             <div
                 style={{
                     display: "flex",
-                    justifyContent: "space-between"
+                    justifyContent: "space-between",
+                    paddingTop: "0rem",
                 }}
                 className="navbar navbar-expand-md nav-color py-0"
             >
-                <Link to="/home">
-                    <img
-                        src={Logo}
-                        alt="Logo"
-                        width="60"
-                        height="60"
-                        className="d-inline-block align-text-top"
-                    />
-                </Link>
-                <nav className="navbar navbar-expand-md nav-color py-0">
-                    <button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={() => setShow(true)}
-                        style={{
-                            backgroundColor: "rgb(213, 244, 244)",
-                            color: "rgba(0, 0, 0, 0.55)",
-                            borderRadius: "2rem",
-                            fontSize: "20px",
-                            border: "none",
-                            width: "150px",
-                            height: "40px",
-                            marginRight: "2rem"
-                        }}
-                    >Pedir Cita</button>
+                <div className="navbar-brand py-0">
                     <Link to="/home">
-                        <h1
-                            className="topmenu"
-                        >Home</h1>
+                        <img
+                            src={Logo}
+                            alt="Logo"
+                            width="60"
+                            height="60"
+                            className="d-inline-block align-text-top"
+                        />
                     </Link>
+                </div>
+                <nav className="navbar navbar-expand-md nav-color py-0">
+                    <div className="container-fluid">
+                        <div className="collapse navbar-collapse" id="nav">
+                            <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll bs-scroll-height">
+                                <li className="nav-item">
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => {
+                                            cleanData();
+                                            setShow(true);
+                                        }}
+                                        style={{
+                                            backgroundColor:
+                                                "rgb(213, 244, 244)",
+                                            color: "rgba(0, 0, 0, 0.55)",
+                                            border: "none",
+                                            marginTop: ".2rem",
+                                        }}
+                                    >
+                                        Pedir Cita
+                                    </button>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/home">
+                                        Home
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    {token && (
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={logout}
+                                            style={{
+                                                backgroundColor:
+                                                    "rgb(213, 244, 244)",
+                                                color: "rgba(0, 0, 0, 0.55)",
+                                                border: "none",
+                                                marginTop: ".2rem",
+                                            }}
+                                            variant="secondary"
+                                        >
+                                            Cerrar Sesión
+                                        </button>
+                                    )}
+                                </li>
+                            </ul>
+                        </div>
+                        <button
+                            className="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#nav"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                        >
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
                 </nav>
             </div>
             <ModalCustom
-                title={id === null ? "Agendar Cita Medica" : "Actualizar Cita Medica"}
+                title={
+                    id === null
+                        ? "Agendar Cita Medica"
+                        : "Actualizar Cita Medica"
+                }
                 show={show}
                 handleClose={() => setShow(false)}
             >
@@ -138,7 +207,11 @@ export default function Agenda() {
                         id="fecha"
                         name="fecha"
                         type="date"
-                        value={(cita.fecha !== '') ? format(new Date(cita.fecha), 'yyyy-MM-dd') : ""}
+                        value={
+                            cita.fecha !== ""
+                                ? format(new Date(cita.fecha), "yyyy-MM-dd")
+                                : ""
+                        }
                         onChange={(v) => handleChange(v)}
                         className="form-control mb-3"
                     ></Input>
@@ -151,9 +224,13 @@ export default function Agenda() {
                         defaultValue=""
                         value={cita.doctor}
                     >
-                        <option value="" disabled>Seleccione un Doctor</option>
+                        <option value="" disabled>
+                            Seleccione un Doctor
+                        </option>
                         {doctors.map((doctor) => (
-                            <option value={doctor.nombre}>{doctor.nombre}</option>
+                            <option value={doctor.nombre}>
+                                {doctor.nombre}
+                            </option>
                         ))}
                     </select>
                     <select
@@ -171,6 +248,25 @@ export default function Agenda() {
                             <option value={hour}>{hour}</option>
                         ))}
                     </select>
+                    {cita.estado === "" ? (
+                        ""
+                    ) : (
+                        <select
+                            className="form-control mb-3"
+                            name="estado"
+                            id="estado"
+                            onChange={(v) => handleChange(v)}
+                            defaultValue=""
+                            value={cita.estado}
+                        >
+                            <option value="" disabled>
+                                Seleccione un Estado
+                            </option>
+                            {estados.map((estado) => (
+                                <option value={estado}>{estado}</option>
+                            ))}
+                        </select>
+                    )}
                     <div className="d-flex justify-content-center">
                         <button
                             type="submit"
@@ -178,12 +274,11 @@ export default function Agenda() {
                             style={{
                                 backgroundColor: "rgb(213, 244, 244)",
                                 color: "rgba(0, 0, 0, 0.55)",
-                                borderRadius: "2rem",
-                                fontSize: "20px",
+                                borderRadius: "1rem",
+                                fontSize: "17px",
                                 border: "none",
-                                width: "150px",
+                                width: "110px",
                                 height: "40px",
-                                marginRight: "2rem"
                             }}
                         >
                             Agendar
@@ -192,11 +287,12 @@ export default function Agenda() {
                 </form>
             </ModalCustom>
 
-
             <div
                 style={{
-                    marginTop: "2rem"
-                }}>
+                    display: "flex",
+                    marginTop: "2rem",
+                }}
+            >
                 <table className="table table-bordered table-custom">
                     <thead>
                         <tr>
@@ -212,32 +308,39 @@ export default function Agenda() {
                         {citas.map((cita, index) => (
                             <tr key={index + 1}>
                                 <td>{index + 1}</td>
-                                <td>{new Date(cita.fecha).toLocaleDateString("en-US")}</td>
+                                <td>
+                                    {new Date(cita.fecha).toLocaleDateString(
+                                        "en-US"
+                                    )}
+                                </td>
                                 <td>{cita.hora}</td>
-                                <td>{cita.doctor.nombre + " " + cita.doctor.apellido}</td>
+                                <td>
+                                    {cita.doctor.nombre +
+                                        " " +
+                                        cita.doctor.apellido}
+                                </td>
                                 <td>{cita.doctor.especialidad}</td>
                                 <td>
                                     <button
                                         className="btn btn-primary"
                                         onClick={() => edit(cita._id)}
                                         style={{
-                                            backgroundColor: "rgb(213, 244, 244)",
+                                            backgroundColor:
+                                                "rgb(213, 244, 244)",
                                             color: "rgba(0, 0, 0, 0.55)",
-                                            borderRadius: "2rem",
-                                            fontSize: "20px",
+                                            borderRadius: "1rem",
+                                            fontSize: "17px",
                                             border: "none",
-                                            width: "150px",
-                                            height: "40px",
-                                            marginRight: "2rem"
                                         }}
-                                    >Editar</button>
+                                    >
+                                        Editar
+                                    </button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-
         </>
     );
 }

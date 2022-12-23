@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { AuthProvider } from "./context/AuthContext";
 import { LandingPage } from "./views/LandingPage";
 import Home from "./views/Home";
 import Login from "./views/Login";
@@ -15,15 +15,17 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />}></Route>
-          <Route path="/home" element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-          <Route path="/agenda" element={<Agenda />}></Route>
-          <Route path="/welcome" element={<Bienvenida />}></Route>
-          <Route path="*" element={<h1>404 NOT FOUND</h1>}></Route>
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<LandingPage />}></Route>
+            <Route path="/home" element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/agenda" element={<Agenda />}></Route>
+            <Route path="/welcome" element={<Bienvenida />}></Route>
+            <Route path="*" element={<h1>404 NOT FOUND</h1>}></Route>
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </>
   );

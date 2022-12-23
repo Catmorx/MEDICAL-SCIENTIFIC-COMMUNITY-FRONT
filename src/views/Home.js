@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useContext } from "react";
 import { IconContext } from "react-icons";
 import Logo from "./../assets/img/logo.jpg";
 import {
@@ -13,11 +12,20 @@ import {
   FaRegCommentDots,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import Button from "../components/forms/Button";
 
 function Home() {
+  
+  const {token, logout} = useContext(AuthContext);
   return (
     <>
       <nav className='navbar navbar-expand-md nav-color py-0'>
+        {token && (
+            <Button variant="secondary" onClick={logout}>
+              Cerrar Sesión
+            </Button>
+          )}
         <Link 
         to="/home"
         style={{
